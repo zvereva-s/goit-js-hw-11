@@ -25,6 +25,21 @@ export class GetApiData {
         })
     }
     
+    fetchRandomPhotos() {
+        return axios.get(`${this.#BASE_URL}?`, {
+            params: {
+                key: this.#API_KEY,
+                q: 'violet',
+                image_type: 'photo',
+                orientation: 'horizontal',
+                safesearch: true,
+                page: this.page,
+                per_page: this.perPage,
+            }
+        })
+    }
+
+
     incrementPage() {
     this.page += 1;
     }

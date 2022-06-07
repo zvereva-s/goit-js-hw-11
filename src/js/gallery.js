@@ -19,7 +19,6 @@ const getApiData = new GetApiData();
 let lightbox = null;
 
 
-
 async function onSubmit(e) {
   e.preventDefault();
 
@@ -71,6 +70,38 @@ async function onLoadMore(e) {
   }
 }
 
+getApiData.fetchRandomPhotos().then(({data}) => {
+  console.log(data);
+  refs.gallery.innerHTML = galleryItem(data.hits);
+
+  lightbox = new SimpleLightbox('.gallery a', {
+    captionsData: 'alt',
+    captionPosition: 'bottom',
+    captionDelay: 250,
+  })
+})
+  .catch(err => {
+    console.log(err);
+  });
 
 refs.form.addEventListener('submit', onSubmit);
 refs.loadMore.addEventListener('click', onLoadMore);
+
+
+// const mutationObserver = new MutationObserver(mutationRecord => {
+//   mutationRecord.forEach(mutation => {
+//     const galleryElements = [...mutation.addedNodes].filter(
+//       galleryNodeItem => galleryNodeItem.nodeName !== '#text'
+//     );
+
+//     setTimeout(() => {
+//       galleryElements.forEach(galleryElement => {
+//         galleryElement.classList.add('appear');
+//       });
+//     }, 0);
+//   });
+// });
+
+// mutationObserver.observe(refs.gallery, {
+//   childList: true,
+// });
