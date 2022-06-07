@@ -116,7 +116,12 @@
     right: 40;
     bottom: 40;
 
-    fill: darkviolet;
+    fill: black;
+
+    &:focus,
+    &:hover {
+        fill: darkviolet;
+    }
 }
 
 .icon-top {
@@ -124,5 +129,10 @@
     right: 40;
     bottom: 90;
 
-    fill: darkviolet;
+    fill: black;
+
+    &:focus,
+    &:hover {
+        fill: darkviolet;
+    }
 }
