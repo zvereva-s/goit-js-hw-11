@@ -18,6 +18,8 @@ refs.loadMore.addEventListener('click', onLoadMore);
 const getApiData = new GetApiData();
 let lightbox = null;
 
+refs.loadMore.classList.add('is-hidden');
+
 // const mutationObserver = new MutationObserver(mutationRecord => {
 //   mutationRecord.forEach(mutation => {
 //     const galleryElements = [...mutation.addedNodes].filter(
@@ -47,7 +49,7 @@ async function onSubmit(e) {
   getApiData.query = e.target.elements['searchQuery'].value
     .trim()
     .toLowerCase();
-  getApiData.page = 1;
+    getApiData.page = 1;
 
   try {
     const { data } = await getApiData.fetchPhotos();
