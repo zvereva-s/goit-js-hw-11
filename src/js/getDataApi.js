@@ -29,7 +29,7 @@ export class GetApiData {
         return axios.get(`${this.#BASE_URL}?`, {
             params: {
                 key: this.#API_KEY,
-                q: 'random',
+                q: 'violet',
                 image_type: 'photo',
                 orientation: 'horizontal',
                 safesearch: true,
