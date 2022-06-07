@@ -12,13 +12,13 @@ const refs = {
   loadMore: document.querySelector('.load-more'),
   targetEl: document.querySelector('.target-element'),
 };
+
+refs.loadMore.classList.add('is-hidden');
+
 const getApiData = new GetApiData();
 let lightbox = null;
 
-refs.form.addEventListener('submit', onSubmit);
-refs.loadMore.addEventListener('click', onLoadMore);
 
-refs.loadMore.classList.add('is-hidden');
 
 async function onSubmit(e) {
   e.preventDefault();
@@ -50,8 +50,8 @@ async function onSubmit(e) {
 
     if (getApiData.page * getApiData.perPage >= data.totalHits) {
       Notify.info("We're sorry, but you've reached the end of search results.");
+      
       refs.loadMore.classList.add('is-hidden');
-
     }
   } catch (err) {
     console.log(err);
@@ -70,3 +70,7 @@ async function onLoadMore(e) {
     console.log(err);
   }
 }
+
+
+refs.form.addEventListener('submit', onSubmit);
+refs.loadMore.addEventListener('click', onLoadMore);
