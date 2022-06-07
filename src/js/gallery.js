@@ -49,7 +49,7 @@ async function onSubmit(e) {
   getApiData.query = e.target.elements['searchQuery'].value
     .trim()
     .toLowerCase();
-    getApiData.page = 1;
+  getApiData.page = 1;
 
   try {
     const { data } = await getApiData.fetchPhotos();
@@ -70,6 +70,12 @@ async function onSubmit(e) {
     Notify.success(`"Hooray! We found ${data.totalHits} images."`);
 
     refs.loadMore.classList.remove('is-hidden');
+
+    if ((getApiData.page * getApiData.perPage) >= data.totalHits) {
+      Notify.info("We're sorry, but you've reached the end of search results.");
+
+      refs.loadMore.classList.add('is-hidden');
+    }
   } catch (err) {
     console.log(err);
   }
@@ -78,19 +84,12 @@ async function onSubmit(e) {
 async function onLoadMore(e) {
   getApiData.incrementPage();
 
-    try {
-        const { data } = await getApiData.fetchPhotos();
-        refs.gallery.insertAdjacentHTML('beforeend', galleryItem(data.hits));
+  try {
+    const { data } = await getApiData.fetchPhotos();
+    refs.gallery.insertAdjacentHTML('beforeend', galleryItem(data.hits));
 
     lightbox.refresh();
-
-    if ((getApiData.page * getApiData.perPage) >= data.totalHits) {
-      Notify.info("We're sorry, but you've reached the end of search results.");
-
-      e.target.classList.add('is-hidden');
-    }
-    }
-    catch (err) {
-        console.log(err);
-    }
+  } catch (err) {
+    console.log(err);
+  }
 }
