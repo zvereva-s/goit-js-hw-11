@@ -1,0 +1,40 @@
+.search-form {
+    position: fixed;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 50px;
+
+
+    background-color: blueviolet;
+    font-family: 'Roboto', sans-serif;
+}
+
+.search-input {
+
+    width: 30%;
+    height: 80%;
+    color: blueviolet;
+
+    font-size: 14px;
+
+}
+
+.submit-btn {
+    height: 80%;
+
+    background-color: blueviolet;
+    color: white;
+
+    border-color: transparent;
+    border-radius: 10%;
+
+    margin-left: 4px;
+
+    &:hover {
+        background-color: darkviolet;
+    }
+}
