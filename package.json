@@ -2,14 +2,14 @@
   "name": "parcel-project-template",
   "version": "2.0.0",
   "description": "",
-  "homepage": "https://zvereva-s.github.io/goit-js-hw-11/",
+  "homepage": "https://zvereva-s.github.io/goit-js-hw-12-is/",
   "scripts": {
     "start": "parcel src/*.html",
-    "build": "parcel build src/*.html --public-url /goit-js-hw-11/"
+    "build": "parcel build src/*.html --public-url /goit-js-hw-12-is/"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zvereva-s/goit-js-hw-11.git"
+    "url": "git+https://github.com/zvereva-s/goit-js-hw-12-is.git"
   },
   "keywords": [],
   "author": "Alexander Repeta <alexander.repeta@gmail.com>",
