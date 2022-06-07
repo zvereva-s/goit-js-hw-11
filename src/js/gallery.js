@@ -12,11 +12,12 @@ const refs = {
   loadMore: document.querySelector('.load-more'),
   targetEl: document.querySelector('.target-element'),
   btnScroll: document.querySelector('.scroll-down'),
+  btnScrollTop:document.querySelector('.scroll-top'),
 };
 
 refs.loadMore.classList.add('is-hidden');
 refs.btnScroll.classList.add('is-hidden');
-
+refs.btnScrollTop.classList.add('is-hidden');
 
 const getApiData = new GetApiData();
 let lightbox = null;
@@ -49,8 +50,10 @@ async function onSubmit(e) {
 
     refs.loadMore.classList.remove('is-hidden');
     refs.btnScroll.classList.remove('is-hidden');
+    refs.btnScrollTop.classList.remove('is-hidden');
 
     refs.btnScroll.addEventListener('click', onScrollClickDown);
+    refs.btnScrollTop.addEventListener('click', onScrollClickTop);
 
 
     if (getApiData.page * getApiData.perPage >= data.totalHits) {
@@ -58,6 +61,7 @@ async function onSubmit(e) {
 
       refs.loadMore.classList.add('is-hidden');
       refs.btnScroll.classList.add('is-hidden');
+      refs.btnScrollTop.classList.add('is-hidden');
     }
   } catch (err) {
     console.log(err);
@@ -87,6 +91,18 @@ window.scrollBy({
   behavior: "smooth",
 });
 }
+
+function onScrollClickTop() {
+  const { height: cardHeight } = document
+  .querySelector(".gallery")
+    .firstElementChild.getBoundingClientRect();
+  
+  window.scrollBy({
+    top: cardHeight * -1,
+    behavior: "smooth",
+});
+}
+
 
 refs.form.addEventListener('submit', onSubmit);
 refs.loadMore.addEventListener('click', onLoadMore);

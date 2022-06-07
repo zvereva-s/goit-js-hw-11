@@ -107,9 +107,9 @@
     display: none;
 }
 
-// .scroll-top.is-hidden {
-//     display: none;
-// }
+.scroll-top.is-hidden {
+    display: none;
+}
 
 .icon-down {
     position: fixed;
@@ -119,10 +119,10 @@
     fill: darkviolet;
 }
 
-// .icon-top {
-//     position: fixed;
-//     right: 40;
-//     bottom: 90;
+.icon-top {
+    position: fixed;
+    right: 40;
+    bottom: 90;
 
-//     fill: darkviolet;
-// }
+    fill: darkviolet;
+}
