@@ -17,9 +17,19 @@
 
     width: 30%;
     height: 80%;
+    padding-left: 10px;
+
     color: blueviolet;
 
     font-size: 14px;
+
+    border-color: transparent;
+    border-style: none;
+
+    &:hover,
+    &:focus {
+        border-color: darkviolet;
+    }
 
 }
 

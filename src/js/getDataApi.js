@@ -24,20 +24,6 @@ export class GetApiData {
             }
         })
     }
-
-    // fetchRandomPhotos() {
-    //     return axios.get(`${this.BASE_URL}?`, {
-    //         params: {
-    //             key: this.#API_KEY,
-    //             q: 'random',
-    //             image_type: 'photo',
-    //             orientation: 'horizontal',
-    //             safesearch: true,
-    //             page: this.page,
-    //             per_page: 40,
-    //         }
-    //     })
-    // }
     
     incrementPage() {
     this.page += 1;

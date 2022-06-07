@@ -15,10 +15,31 @@ const refs = {
 const getApiData = new GetApiData();
 let lightbox = null;
 
-refs.form.addEventListener('submit', onSubmit);
-refs.loadMore.addEventListener('click', onLoadMore);
-
 refs.loadMore.classList.add('is-hidden');
+
+const intersectionObserverOptions = {
+  root: null,
+  rootMargin: '0px 0px 200px 0px',
+  threshold: 1.0,
+};
+const intersectionObserver = new IntersectionObserver((entries, observe) => {
+  entries.forEach(async entry => {
+    if (!entry.isIntersecting) {
+      return;
+    }
+
+    getApiData.incrementPage();
+
+    try {
+    const { data } = await getApiData.fetchPhotos();
+    refs.gallery.insertAdjacentHTML('beforeend', galleryItem(data.hits));
+
+    lightbox.refresh();
+    } catch (err) {
+      console.log(err);
+    }
+  });
+}, intersectionObserverOptions);
 
 async function onSubmit(e) {
   e.preventDefault();
@@ -30,14 +51,17 @@ async function onSubmit(e) {
 
   try {
     const { data } = await getApiData.fetchPhotos();
+    
     if (!data.hits.length) {
       Notify.failure(
         'Sorry, there are no images matching your search query. Please try again.'
       );
       return;
     }
+      
     refs.gallery.innerHTML = galleryItem(data.hits);  
-
+      intersectionObserver.observe(refs.targetEl);
+    
     lightbox = new SimpleLightbox('.gallery a', {
       captionsData: 'alt',
       captionPosition: 'bottom',
@@ -46,11 +70,11 @@ async function onSubmit(e) {
 
     Notify.success(`"Hooray! We found ${data.totalHits} images."`);
 
-    refs.loadMore.classList.remove('is-hidden');
 
     if (getApiData.page * getApiData.perPage >= data.totalHits) {
       Notify.info("We're sorry, but you've reached the end of search results.");
-      refs.loadMore.classList.add('is-hidden');
+    
+        intersectionObserver.unobserve(refs.targetEl);
 
     }
   } catch (err) {
@@ -58,15 +82,6 @@ async function onSubmit(e) {
   }
 }
 
-async function onLoadMore(e) {
-  getApiData.incrementPage();
+refs.form.addEventListener('submit', onSubmit);
 
-  try {
-    const { data } = await getApiData.fetchPhotos();
-    refs.gallery.insertAdjacentHTML('beforeend', galleryItem(data.hits));
 
-    lightbox.refresh();
-  } catch (err) {
-    console.log(err);
-  }
-}
