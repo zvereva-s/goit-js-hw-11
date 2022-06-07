@@ -36,10 +36,14 @@
         transform: scale(1.03);
     }
 
+    opacity: 0;
+    transform: scale(0);
+    transition: opacity 500ms liner,
+    transform 500ms liner;
 
 }
 
-.appear {
+.photo-card.appear {
     opacity: 1;
     transform: scale(1);
 }

@@ -70,6 +70,10 @@ async function onLoadMore(e) {
   }
 }
 
+refs.form.addEventListener('submit', onSubmit);
+refs.loadMore.addEventListener('click', onLoadMore);
+
+//! random photos + annimation //
 getApiData.fetchRandomPhotos().then(({data}) => {
   console.log(data);
   refs.gallery.innerHTML = galleryItem(data.hits);
@@ -84,24 +88,20 @@ getApiData.fetchRandomPhotos().then(({data}) => {
     console.log(err);
   });
 
-refs.form.addEventListener('submit', onSubmit);
-refs.loadMore.addEventListener('click', onLoadMore);
+const mutationObserver = new MutationObserver(mutationRecord => {
+  mutationRecord.forEach(mutation => {
+    const galleryElements = [...mutation.addedNodes].filter(
+      galleryNodeItem => galleryNodeItem.nodeName !== '#text'
+    );
 
+    setTimeout(() => {
+      galleryElements.forEach(galleryElement => {
+        galleryElement.classList.add('appear');
+      });
+    }, 0);
+  });
+});
 
-// const mutationObserver = new MutationObserver(mutationRecord => {
-//   mutationRecord.forEach(mutation => {
-//     const galleryElements = [...mutation.addedNodes].filter(
-//       galleryNodeItem => galleryNodeItem.nodeName !== '#text'
-//     );
-
-//     setTimeout(() => {
-//       galleryElements.forEach(galleryElement => {
-//         galleryElement.classList.add('appear');
-//       });
-//     }, 0);
-//   });
-// });
-
-// mutationObserver.observe(refs.gallery, {
-//   childList: true,
-// });
+mutationObserver.observe(refs.gallery, {
+  childList: true,
+});
