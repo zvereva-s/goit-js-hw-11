@@ -24,6 +24,7 @@ let lightbox = null;
 
 async function onSubmit(e) {
   e.preventDefault();
+  refs.loadMore.classList.add('is-hidden');
 
   getApiData.query = e.target.elements['searchQuery'].value
     .trim()
@@ -76,6 +77,16 @@ async function onLoadMore(e) {
     refs.gallery.insertAdjacentHTML('beforeend', galleryItem(data.hits));
 
     lightbox.refresh();
+
+    if ((getApiData.page * getApiData.perPage) >= data.totalHits) {
+      Notify.info("We're sorry, but you've reached the end of search results.");
+
+      e.target.classList.add('is-hidden');
+      refs.btnScroll.classList.add('is-hidden');
+      refs.btnScrollTop.classList.add('is-hidden');
+    }
+
+
   } catch (err) {
     console.log(err);
   }
